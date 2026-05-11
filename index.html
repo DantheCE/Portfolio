@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daniel Fagbohunlu — Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Epilogue:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── T-01: GLOBAL TOKENS & RESET ─── */
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --primary: #e8c87a;
+      --primary-dim: rgba(232,200,122,0.12);
+      --text: #e8e6e0;
+      --text-muted: #7a7a8c;
+      --accent: #7c9cff;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Epilogue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── T-03: NAVIGATION ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* ─── SHARED SECTION STYLES ─── */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── SHARED BUTTON STYLES ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #0a0a0f;
+    }
+
+    .btn-primary:hover {
+      background: #f0d68a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,200,122,0.25);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* ─── T-04: HERO SECTION ─── */
+    #home {
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 60vw;
+      height: 60vw;
+      max-width: 700px;
+      max-height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,200,122,0.07) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s ease forwards;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s ease forwards;
+    }
+
+    .hero-name em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s ease forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s ease forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.9s ease forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--primary), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ─── T-05: BIO SECTION ─── */
+    #bio {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .bio-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .bio-stat {
+      border-left: 2px solid var(--primary);
+      padding-left: 1rem;
+    }
+
+    .bio-stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .bio-stat-value {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .bio-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .bio-text p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─── T-11: PORTFOLIO DOWNLOAD ─── */
+    .portfolio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+
+    .portfolio-header .section-header {
+      margin-bottom: 0;
+    }
+
+    .portfolio-download {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s;
+    }
+
+    .portfolio-download:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-dim);
+      transform: translateY(-2px);
+    }
+
+    .portfolio-download svg {
+      display: block;
+    }
+
+    /* ─── T-06: PORTFOLIO SECTION ─── */
+    #portfolio {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .portfolio-inner {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.75rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(232,200,122,0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .stack-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      background: var(--primary-dim);
+      color: var(--primary);
+    }
+
+    /* ─── T-07: ELEVATOR PITCH SECTION ─── */
+    #pitch {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      flex-direction: column;
+    }
+
+    .pitch-inner {
+      max-width: 780px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .pitch-inner .section-header {
+      justify-content: center;
+    }
+
+    .video-placeholder {
+      margin: 2.5rem auto 0;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16/9;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(232,200,122,0.015) 10px, rgba(232,200,122,0.015) 20px);
+    }
+
+    .play-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .play-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-muted);
+      margin-left: 3px;
+    }
+
+    .video-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .video-sublabel {
+      font-size: 0.8rem;
+      color: rgba(122,122,140,0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── T-08: FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    /* ─── T-09: ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ─── T-10: RESPONSIVE ─── */
+    @media (max-width: 680px) {
+      .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- T-03: Navigation -->
+  <nav>
+    <a href="#home" class="nav-logo">DF/</a>
+    <ul class="nav-links">
+      <li><a href="#bio">Bio</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#pitch">Pitch</a></li>
+    </ul>
+  </nav>
+
+  <!-- T-04: Hero Section -->
+  <section id="home">
+    <div class="hero-noise"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <p class="hero-label">Systems Engineer · Software Architect</p>
+      <h1 class="hero-name">Daniel<br /><em>Fagbohunlu</em></h1>
+      <p class="hero-tagline">
+        Low-level control, high-level scalability — bridging embedded systems
+        and enterprise architecture.
+      </p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn btn-primary">View Work</a>
+        <a href="#bio" class="btn btn-outline">About Me</a>
+        <a href="#pitch" class="btn btn-outline">Elevator Pitch</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- T-05: Bio Section -->
+  <section id="bio">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-num">01 /</span>
+        <h2 class="section-title">Bio</h2>
+      </div>
+      <div class="bio-grid">
+        <div class="bio-meta">
+          <div class="bio-stat">
+            <div class="bio-stat-label">Location</div>
+            <div class="bio-stat-value">Lagos, Nigeria</div>
+          </div>
+          <div class="bio-stat">
+            <div class="bio-stat-label">Focus</div>
+            <div class="bio-stat-value">Systems Engineering &amp; Backend Architecture</div>
+          </div>
+          <div class="bio-stat">
+            <div class="bio-stat-label">Stack</div>
+            <div class="bio-stat-value">C/C++, Rust, Go, Python</div>
+          </div>
+          <div class="bio-stat">
+            <div class="bio-stat-label">Currently</div>
+            <div class="bio-stat-value">Building EkoFare</div>
+          </div>
+        </div>
+        <div class="bio-text">
+          <p>I'm a <strong>systems engineer</strong> who operates across the full technical stack — from writing bare-metal firmware in C to designing distributed backend services that scale. My work sits at the intersection of <strong>low-level performance</strong> and <strong>high-level product thinking</strong>.</p>
+          <p>My background spans embedded systems at <strong>Lytup</strong>, backend architecture at <strong>OgaLandlord</strong>, and enterprise infrastructure at <strong>Coca-Cola HBC</strong>. Each role deepened my conviction that the best engineers understand the entire system, not just their slice of it.</p>
+          <p>Right now I'm focused on <strong>EkoFare</strong> — a civic tech platform solving real logistics problems in Lagos. It's the project that best captures how I think: start from first principles, design for fault tolerance, and build for the people who depend on it every day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-06: Portfolio Section (with T-11 download icon) -->
+  <section id="portfolio">
+    <div class="portfolio-inner">
+      <div class="portfolio-header">
+        <div class="section-header">
+          <span class="section-num">02 /</span>
+          <h2 class="section-title">Portfolio</h2>
+        </div>
+        <a href="daniel-fagbohunlu-portfolio.pdf" download
+           class="portfolio-download"
+           title="Download Portfolio"
+           aria-label="Download Portfolio">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-tag">Featured · Civic Tech</div>
+          <div class="project-name">EkoFare</div>
+          <p class="project-desc">A full-stack civic technology platform addressing Lagos transportation logistics. Real-time state management, resilient APIs, and a product-first approach to a city-scale problem.</p>
+          <div class="project-stack">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Node.js</span>
+            <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">Redis</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-tag">Embedded Systems</div>
+          <div class="project-name">BMS-EMS</div>
+          <p class="project-desc">Battery Management System with Energy Management integration. Firmware written in C with real-time fault-tolerance and hardware abstraction layers for cross-device portability.</p>
+          <div class="project-stack">
+            <span class="stack-tag">C</span>
+            <span class="stack-tag">RTOS</span>
+            <span class="stack-tag">CAN Bus</span>
+            <span class="stack-tag">Python</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-tag">Backend · Proptech</div>
+          <div class="project-name">OgaLandlord</div>
+          <p class="project-desc">Scalable property management backend serving landlords and tenants across Nigeria. REST API design, database optimisation, and a microservices migration path.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Go</span>
+            <span class="stack-tag">gRPC</span>
+            <span class="stack-tag">PostgreSQL</span>
+            <span class="stack-tag">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-07: Elevator Pitch Section -->
+  <section id="pitch">
+    <div class="pitch-inner">
+      <div class="section-header">
+        <span class="section-num">03 /</span>
+        <h2 class="section-title">Elevator Pitch</h2>
+      </div>
+      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 540px; margin: 0 auto 1rem;">
+        A 90-second introduction to who I am, what I build, and why it matters.
+      </p>
+      <div class="video-placeholder">
+        <div class="play-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <div class="video-label">Video Coming Soon</div>
+        <div class="video-sublabel">Elevator pitch · ~90 seconds</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- T-08: Footer -->
+  <footer>
+    <span class="footer-name">Daniel Fagbohunlu © 2026</span>
+    <ul class="footer-links">
+      <li><a href="https://github.com/DantheCE" target="_blank">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/daniel-fagbohunlu" target="_blank">LinkedIn</a></li>
+      <li><a href="mailto:dan.doyin@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
