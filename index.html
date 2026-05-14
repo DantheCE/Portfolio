@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daniel Fagbohunlu — Portfolio</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Epilogue:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Epilogue:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
   <style>
-    /* ─── T-01: GLOBAL TOKENS & RESET ─── */
     :root {
       --bg: #0a0a0f;
       --surface: #13131a;
@@ -23,15 +19,9 @@
       --accent: #7c9cff;
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Epilogue', sans-serif;
@@ -41,12 +31,10 @@
       overflow-x: hidden;
     }
 
-    /* ─── T-03: NAVIGATION ─── */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -85,24 +73,17 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -3px;
-      left: 0;
-      right: 0;
+      bottom: -3px; left: 0; right: 0;
       height: 1px;
       background: var(--primary);
       transform: scaleX(0);
       transition: transform 0.25s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--primary);
-    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
-    .nav-links a:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* ─── SHARED SECTION STYLES ─── */
+    /* ─── SECTIONS ─── */
     section {
       min-height: 100vh;
       display: flex;
@@ -112,72 +93,7 @@
       position: relative;
     }
 
-    .section-inner {
-      max-width: 900px;
-      width: 100%;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .section-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--primary);
-      letter-spacing: 0.1em;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    /* ─── SHARED BUTTON STYLES ─── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #0a0a0f;
-    }
-
-    .btn-primary:hover {
-      background: #f0d68a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(232,200,122,0.25);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      background: transparent;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    /* ─── T-04: HERO SECTION ─── */
+    /* ─── HERO ─── */
     #home {
       flex-direction: column;
       text-align: center;
@@ -187,8 +103,8 @@
     .hero-noise {
       position: absolute;
       inset: 0;
-      pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
     }
 
     .hero-glow {
@@ -199,8 +115,7 @@
       max-height: 700px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(232,200,122,0.07) 0%, transparent 70%);
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
@@ -259,6 +174,41 @@
       animation: fadeUp 0.7s 0.55s ease forwards;
     }
 
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #0a0a0f;
+    }
+    .btn-primary:hover {
+      background: #f0d68a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232,200,122,0.25);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      background: transparent;
+    }
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
     .hero-scroll {
       position: absolute;
       bottom: 2.5rem;
@@ -283,11 +233,38 @@
       animation: scrollPulse 2s ease infinite;
     }
 
-    /* ─── T-05: BIO SECTION ─── */
+    /* ─── BIO ─── */
     #bio {
       background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+    }
+
+    .section-inner {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--primary);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
     }
 
     .bio-grid {
@@ -335,7 +312,7 @@
       font-weight: 600;
     }
 
-    /* ─── T-11: PORTFOLIO DOWNLOAD ─── */
+    /* ─── PORTFOLIO DOWNLOAD ─── */
     .portfolio-header {
       display: flex;
       align-items: center;
@@ -372,7 +349,7 @@
       display: block;
     }
 
-    /* ─── T-06: PORTFOLIO SECTION ─── */
+        /* ─── PORTFOLIO ─── */
     #portfolio {
       flex-direction: column;
       align-items: center;
@@ -403,9 +380,7 @@
     .project-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--primary), var(--accent));
       transform: scaleX(0);
@@ -419,9 +394,7 @@
       box-shadow: 0 16px 40px rgba(0,0,0,0.4);
     }
 
-    .project-card:hover::before {
-      transform: scaleX(1);
-    }
+    .project-card:hover::before { transform: scaleX(1); }
 
     .project-tag {
       font-family: 'Space Mono', monospace;
@@ -460,9 +433,10 @@
       border-radius: 3px;
       background: var(--primary-dim);
       color: var(--primary);
+      letter-spacing: 0.05em;
     }
 
-    /* ─── T-07: ELEVATOR PITCH SECTION ─── */
+    /* ─── ELEVATOR PITCH ─── */
     #pitch {
       background: var(--surface);
       border-top: 1px solid var(--border);
@@ -500,7 +474,13 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(232,200,122,0.015) 10px, rgba(232,200,122,0.015) 20px);
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(232,200,122,0.015) 10px,
+        rgba(232,200,122,0.015) 20px
+      );
     }
 
     .play-icon {
@@ -539,7 +519,7 @@
       z-index: 1;
     }
 
-    /* ─── T-08: FOOTER ─── */
+    /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 2.5rem;
@@ -550,30 +530,28 @@
       gap: 1rem;
     }
 
-    .footer-name {
+    footer .footer-name {
       font-family: 'Space Mono', monospace;
       font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    .footer-links {
+    footer .footer-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
 
-    .footer-links a {
+    footer .footer-links a {
       font-size: 0.78rem;
       color: var(--text-muted);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover {
-      color: var(--primary);
-    }
+    footer .footer-links a:hover { color: var(--primary); }
 
-    /* ─── T-09: ANIMATIONS ─── */
+    /* ─── ANIMATIONS ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -584,7 +562,7 @@
       50% { opacity: 1; }
     }
 
-    /* ─── T-10: RESPONSIVE ─── */
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 680px) {
       .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
       nav { padding: 1rem 1.25rem; }
@@ -594,7 +572,7 @@
 </head>
 <body>
 
-  <!-- T-03: Navigation -->
+  <!-- NAV -->
   <nav>
     <a href="#home" class="nav-logo">DF/</a>
     <ul class="nav-links">
@@ -604,21 +582,19 @@
     </ul>
   </nav>
 
-  <!-- T-04: Hero Section -->
+  <!-- ─── HOME ─── -->
   <section id="home">
     <div class="hero-noise"></div>
     <div class="hero-glow"></div>
     <div class="hero-inner">
-      <p class="hero-label">Systems Engineer · Software Architect</p>
+      <p class="hero-label">Backend &amp; Systems Developer</p>
       <h1 class="hero-name">Daniel<br /><em>Fagbohunlu</em></h1>
-      <p class="hero-tagline">
-        Low-level control, high-level scalability — bridging embedded systems
-        and enterprise architecture.
-      </p>
+      <p class="hero-tagline">Low-level curiosity, backend focus — building things that work correctly under pressure.</p>
       <div class="hero-cta">
         <a href="#portfolio" class="btn btn-primary">View Work</a>
         <a href="#bio" class="btn btn-outline">About Me</a>
         <a href="#pitch" class="btn btn-outline">Elevator Pitch</a>
+
       </div>
     </div>
     <div class="hero-scroll">
@@ -627,7 +603,7 @@
     </div>
   </section>
 
-  <!-- T-05: Bio Section -->
+  <!-- ─── BIO ─── -->
   <section id="bio">
     <div class="section-inner">
       <div class="section-header">
@@ -642,7 +618,7 @@
           </div>
           <div class="bio-stat">
             <div class="bio-stat-label">Focus</div>
-            <div class="bio-stat-value">Systems Engineering &amp; Backend Architecture</div>
+            <div class="bio-stat-value">Backend Development &amp; Systems Programming</div>
           </div>
           <div class="bio-stat">
             <div class="bio-stat-label">Stack</div>
@@ -654,15 +630,15 @@
           </div>
         </div>
         <div class="bio-text">
-          <p>I'm a <strong>systems engineer</strong> who operates across the full technical stack — from writing bare-metal firmware in C to designing distributed backend services that scale. My work sits at the intersection of <strong>low-level performance</strong> and <strong>high-level product thinking</strong>.</p>
-          <p>My background spans embedded systems at <strong>Lytup</strong>, backend architecture at <strong>OgaLandlord</strong>, and enterprise infrastructure at <strong>Coca-Cola HBC</strong>. Each role deepened my conviction that the best engineers understand the entire system, not just their slice of it.</p>
+          <p>I'm a <strong>CS student</strong> and backend developer with a genuine interest in how systems work at a low level — how memory moves, how processes schedule, how networks communicate. I build things from the ground up and care about understanding what's happening beneath the abstractions.</p>
+          <p>I've worked on firmware at <strong>Lytup</strong>, backend APIs at <strong>OgaLandlord</strong>, and enterprise infrastructure at <strong>Coca-Cola HBC</strong>. Each role gave me a different layer of the stack to understand, and I'm still building that depth.</p>
           <p>Right now I'm focused on <strong>EkoFare</strong> — a civic tech platform solving real logistics problems in Lagos. It's the project that best captures how I think: start from first principles, design for fault tolerance, and build for the people who depend on it every day.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- T-06: Portfolio Section (with T-11 download icon) -->
+  <!-- ─── PORTFOLIO ─── -->
   <section id="portfolio">
     <div class="portfolio-inner">
       <div class="portfolio-header">
@@ -683,6 +659,7 @@
         </a>
       </div>
       <div class="projects-grid">
+
         <div class="project-card">
           <div class="project-tag">Featured · Civic Tech</div>
           <div class="project-name">EkoFare</div>
@@ -694,10 +671,11 @@
             <span class="stack-tag">Redis</span>
           </div>
         </div>
+
         <div class="project-card">
           <div class="project-tag">Embedded Systems</div>
           <div class="project-name">BMS-EMS</div>
-          <p class="project-desc">Battery Management System with Energy Management integration. Firmware written in C with real-time fault-tolerance and hardware abstraction layers for cross-device portability.</p>
+          <p class="project-desc">Battery and Energy Management System built with the dev team at Lytup. Firmware in C, peripheral communication via SPI/I2C, and a hardware abstraction layer to keep the code portable across boards.</p>
           <div class="project-stack">
             <span class="stack-tag">C</span>
             <span class="stack-tag">RTOS</span>
@@ -705,10 +683,11 @@
             <span class="stack-tag">Python</span>
           </div>
         </div>
+
         <div class="project-card">
           <div class="project-tag">Backend · Proptech</div>
           <div class="project-name">OgaLandlord</div>
-          <p class="project-desc">Scalable property management backend serving landlords and tenants across Nigeria. REST API design, database optimisation, and a microservices migration path.</p>
+          <p class="project-desc">Property management backend serving landlords and tenants across Nigeria. REST API design, database modelling, and iterative service improvements.</p>
           <div class="project-stack">
             <span class="stack-tag">Go</span>
             <span class="stack-tag">gRPC</span>
@@ -716,20 +695,20 @@
             <span class="stack-tag">Docker</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- T-07: Elevator Pitch Section -->
+  <!-- ─── ELEVATOR PITCH ─── -->
   <section id="pitch">
     <div class="pitch-inner">
       <div class="section-header">
         <span class="section-num">03 /</span>
         <h2 class="section-title">Elevator Pitch</h2>
       </div>
-      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 540px; margin: 0 auto 1rem;">
-        A 90-second introduction to who I am, what I build, and why it matters.
-      </p>
+      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 540px; margin: 0 auto 1rem;">A 90-second introduction to who I am, what I build, and why it matters.</p>
+
       <div class="video-placeholder">
         <div class="play-icon">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -742,13 +721,14 @@
     </div>
   </section>
 
-  <!-- T-08: Footer -->
+  <!-- FOOTER -->
   <footer>
     <span class="footer-name">Daniel Fagbohunlu © 2026</span>
     <ul class="footer-links">
-      <li><a href="https://github.com/DantheCE" target="_blank">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/daniel-fagbohunlu" target="_blank">LinkedIn</a></li>
-      <li><a href="mailto:dan.doyin@gmail.com">Email</a></li>
+      <li><a href="https://github.com" target="_blank">GitHub</a></li>
+      <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+      <li><a href="mailto:hello@example.com">Email</a></li>
+
     </ul>
   </footer>
 
