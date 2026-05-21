@@ -1,736 +1,331 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Fagbohunlu — Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Epilogue:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: #1e1e2e;
-      --primary: #e8c87a;
-      --primary-dim: rgba(232,200,122,0.12);
-      --text: #e8e6e0;
-      --text-muted: #7a7a8c;
-      --accent: #7c9cff;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Epilogue', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(10,10,15,0.85);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--primary);
-      letter-spacing: 0.08em;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0; right: 0;
-      height: 1px;
-      background: var(--primary);
-      transform: scaleX(0);
-      transition: transform 0.25s ease;
-    }
-
-    .nav-links a:hover { color: var(--primary); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-
-    /* ─── SECTIONS ─── */
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6rem 2rem 4rem;
-      position: relative;
-    }
-
-    /* ─── HERO ─── */
-    #home {
-      flex-direction: column;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .hero-noise {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 60vw;
-      height: 60vw;
-      max-width: 700px;
-      max-height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,200,122,0.07) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      max-width: 720px;
-    }
-
-    .hero-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s 0.1s ease forwards;
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.02em;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.25s ease forwards;
-    }
-
-    .hero-name em {
-      font-style: normal;
-      color: var(--primary);
-    }
-
-    .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      font-weight: 300;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 520px;
-      margin: 0 auto 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.4s ease forwards;
-    }
-
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.55s ease forwards;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.85rem 2rem;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.25s ease;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #0a0a0f;
-    }
-    .btn-primary:hover {
-      background: #f0d68a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(232,200,122,0.25);
-    }
-
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      background: transparent;
-    }
-    .btn-outline:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-2px);
-    }
-
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeUp 0.7s 0.9s ease forwards;
-    }
-
-    .scroll-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, var(--primary), transparent);
-      animation: scrollPulse 2s ease infinite;
-    }
-
-    /* ─── BIO ─── */
-    #bio {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-inner {
-      max-width: 900px;
-      width: 100%;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .section-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--primary);
-      letter-spacing: 0.1em;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-
-    .bio-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.8fr;
-      gap: 4rem;
-      align-items: start;
-    }
-
-    .bio-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .bio-stat {
-      border-left: 2px solid var(--primary);
-      padding-left: 1rem;
-    }
-
-    .bio-stat-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-
-    .bio-stat-value {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .bio-text p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .bio-text p strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* ─── PORTFOLIO DOWNLOAD ─── */
-    .portfolio-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 3rem;
-    }
-
-    .portfolio-header .section-header {
-      margin-bottom: 0;
-    }
-
-    .portfolio-download {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      text-decoration: none;
-      flex-shrink: 0;
-      transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.25s;
-    }
-
-    .portfolio-download:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: var(--primary-dim);
-      transform: translateY(-2px);
-    }
-
-    .portfolio-download svg {
-      display: block;
-    }
-
-        /* ─── PORTFOLIO ─── */
-    #portfolio {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .portfolio-inner {
-      max-width: 1000px;
-      width: 100%;
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.75rem;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    .project-card:hover {
-      border-color: rgba(232,200,122,0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-    }
-
-    .project-card:hover::before { transform: scaleX(1); }
-
-    .project-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--primary);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .project-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-    }
-
-    .project-desc {
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .project-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .stack-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 3px;
-      background: var(--primary-dim);
-      color: var(--primary);
-      letter-spacing: 0.05em;
-    }
-
-    /* ─── ELEVATOR PITCH ─── */
-    #pitch {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      flex-direction: column;
-    }
-
-    .pitch-inner {
-      max-width: 780px;
-      width: 100%;
-      text-align: center;
-    }
-
-    .pitch-inner .section-header {
-      justify-content: center;
-    }
-
-    .video-placeholder {
-      margin: 2.5rem auto 0;
-      width: 100%;
-      max-width: 640px;
-      aspect-ratio: 16/9;
-      background: var(--bg);
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(232,200,122,0.015) 10px,
-        rgba(232,200,122,0.015) 20px
-      );
-    }
-
-    .play-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .play-icon svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--text-muted);
-      margin-left: 3px;
-    }
-
-    .video-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
-    }
-
-    .video-sublabel {
-      font-size: 0.8rem;
-      color: rgba(122,122,140,0.6);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    footer .footer-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    footer .footer-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-
-    footer .footer-links a {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    footer .footer-links a:hover { color: var(--primary); }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 1; }
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 680px) {
-      .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { gap: 1.25rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniel Fagbohunlu | Systems Engineer</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Space+Grotesk:wght@500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bone: #EFECE6;
+            --black: #121212;
+            --vermilion: #EB3615;
+        }
+        
+        body {
+            background-color: var(--bone);
+            color: var(--black);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden; 
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            line-height: 1.05;
+        }
+
+        .font-mono {
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .work-row {
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+        .work-row:hover {
+            color: var(--vermilion);
+            background-color: rgba(18, 18, 18, 0.03);
+            cursor: pointer;
+        }
+        
+        .marquee-wrapper {
+            display: flex;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100vw;
+        }
+        .marquee-content {
+            display: flex;
+            animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary { border-bottom: 1px solid var(--black); }
+    </style>
 </head>
-<body>
+<body class="antialiased selection:bg-[#EB3615] selection:text-white">
 
-  <!-- NAV -->
-  <nav>
-    <a href="#home" class="nav-logo">DF/</a>
-    <ul class="nav-links">
-      <li><a href="#bio">Bio</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#pitch">Pitch</a></li>
-    </ul>
-  </nav>
+    <nav class="fixed top-0 left-0 w-full bg-[#EFECE6] border-b border-black grid grid-cols-3 z-50 font-mono text-xs md:text-sm h-16 items-center px-6 md:px-12">
+        <div class="font-bold tracking-widest">DANIEL.F()</div>
+        <div class="text-center hidden md:block" id="lagos-clock">LAGOS, WAT --:--:--</div>
+        <div class="text-right flex justify-end gap-8">
+            <a href="#work" class="hover:text-[#EB3615] transition-colors">WORK</a>
+            <a href="#projects" class="hover:text-[#EB3615] transition-colors">PROJECTS</a>
+            <a href="#pitch" class="hover:text-[#EB3615] transition-colors">PITCH</a>
+            <a href="daniel-fagbohunlu-portfolio.pdf" download class="text-[#EB3615] hover:text-black transition-colors font-bold">[DECK]</a>
+        </div>
+    </nav>
 
-  <!-- ─── HOME ─── -->
-  <section id="home">
-    <div class="hero-noise"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-inner">
-      <p class="hero-label">Backend &amp; Systems Developer</p>
-      <h1 class="hero-name">Daniel<br /><em>Fagbohunlu</em></h1>
-      <p class="hero-tagline">Low-level curiosity, backend focus — building things that work correctly under pressure.</p>
-      <div class="hero-cta">
-        <a href="#portfolio" class="btn btn-primary">View Work</a>
-        <a href="#bio" class="btn btn-outline">About Me</a>
-        <a href="#pitch" class="btn btn-outline">Elevator Pitch</a>
+    <section class="mt-16 min-h-[80vh] flex flex-col justify-center px-6 md:px-12 py-24 border-b border-black">
+        <h1 class="text-[12vw] md:text-[9vw] font-bold tracking-tighter mb-8 leading-[0.9]">
+            SYSTEMS &<br>BACKEND<br>ENGINEER.
+        </h1>
+        <p class="font-mono text-lg md:text-xl max-w-3xl leading-relaxed text-gray-700 mb-12">
+            Specializing in low-level architecture, embedded systems communication, and highly concurrent backend infrastructure. Driven by resource optimization and thread safety.
+        </p>
+        <div>
+            <a href="path/to/your/slide_deck.pdf" download class="inline-flex items-center gap-3 font-mono text-sm md:text-base border-2 border-black px-8 py-4 bg-black text-[#EFECE6] hover:bg-[#EFECE6] hover:text-black transition-colors shadow-[8px_8px_0px_0px_rgba(235,54,21,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
+                [ DOWNLOAD PORTFOLIO DECK ↓ ]
+            </a>
+        </div>
+    </section>
 
-      </div>
+    <div class="py-8 border-b border-black bg-black text-[#EFECE6] relative">
+        <div class="marquee-wrapper font-mono text-2xl md:text-3xl tracking-widest font-bold">
+            <div class="marquee-content">
+                <span class="mx-6">C / C++</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">GOLANG</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">NODE.JS</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">POSTGRESQL</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">PRISMA</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">MODBUS / RS485</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">PTHREADS</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">C / C++</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">GOLANG</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">NODE.JS</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">POSTGRESQL</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">PRISMA</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">MODBUS / RS485</span><span class="mx-6 text-[#EB3615]">•</span>
+                <span class="mx-6">PTHREADS</span><span class="mx-6 text-[#EB3615]">•</span>
+            </div>
+        </div>
     </div>
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
 
-  <!-- ─── BIO ─── -->
-  <section id="bio">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-num">01 /</span>
-        <h2 class="section-title">Bio</h2>
-      </div>
-      <div class="bio-grid">
-        <div class="bio-meta">
-          <div class="bio-stat">
-            <div class="bio-stat-label">Location</div>
-            <div class="bio-stat-value">Lagos, Nigeria</div>
-          </div>
-          <div class="bio-stat">
-            <div class="bio-stat-label">Focus</div>
-            <div class="bio-stat-value">Backend Development &amp; Systems Programming</div>
-          </div>
-          <div class="bio-stat">
-            <div class="bio-stat-label">Stack</div>
-            <div class="bio-stat-value">C/C++, Rust, Go, Python</div>
-          </div>
-          <div class="bio-stat">
-            <div class="bio-stat-label">Currently</div>
-            <div class="bio-stat-value">Building EkoFare</div>
-          </div>
+    <section class="grid grid-cols-1 md:grid-cols-2 border-b border-black">
+        <div class="p-8 md:p-16 border-b md:border-b-0 md:border-r border-black">
+            <div class="font-mono text-sm text-gray-500 mb-6">CURRENT STATUS</div>
+            <div class="text-2xl md:text-3xl font-medium mb-12 font-display uppercase">
+                B.Sc. Computer Science<br>
+                <span class="text-gray-500 text-xl">Babcock University (Exp. 2027)</span>
+            </div>
+            
+            <div class="font-mono text-sm text-gray-500 mb-6">ACTIVE ROLES</div>
+            <div class="text-2xl md:text-3xl font-medium mb-6 font-display uppercase">
+                Systems Engineer Intern<br>
+                <span class="text-gray-500 text-xl">@ Lytup</span>
+            </div>
+            <div class="text-2xl md:text-3xl font-medium font-display uppercase">
+                Backend Engineer<br>
+                <span class="text-gray-500 text-xl">@ OgaLandlord</span>
+            </div>
         </div>
-        <div class="bio-text">
-          <p>I'm a <strong>CS student</strong> and backend developer with a genuine interest in how systems work at a low level — how memory moves, how processes schedule, how networks communicate. I build things from the ground up and care about understanding what's happening beneath the abstractions.</p>
-          <p>I've worked on firmware at <strong>Lytup</strong>, backend APIs at <strong>OgaLandlord</strong>, and enterprise infrastructure at <strong>Coca-Cola HBC</strong>. Each role gave me a different layer of the stack to understand, and I'm still building that depth.</p>
-          <p>Right now I'm focused on <strong>EkoFare</strong> — a civic tech platform solving real logistics problems in Lagos. It's the project that best captures how I think: start from first principles, design for fault tolerance, and build for the people who depend on it every day.</p>
+        
+        <div class="p-8 md:p-16 bg-[#EFECE6]">
+            <div class="font-mono text-sm text-gray-500 mb-6">METHODOLOGY</div>
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">NOT AN ISLAND.</h2>
+            <p class="text-lg md:text-xl leading-relaxed max-w-prose text-gray-800">
+                I build robust systems through Agile methodologies, daily standups, and rigorous code reviews. I thrive in fast-paced environments, resolving complex merge conflicts collaboratively to deploy system-level integrations without breaking the pipeline.
+            </p>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ─── PORTFOLIO ─── -->
-  <section id="portfolio">
-    <div class="portfolio-inner">
-      <div class="portfolio-header">
-        <div class="section-header">
-          <span class="section-num">02 /</span>
-          <h2 class="section-title">Portfolio</h2>
-        </div>
-        <a href="daniel-fagbohunlu-portfolio.pdf" download
-           class="portfolio-download"
-           title="Download Portfolio"
-           aria-label="Download Portfolio">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-        </a>
-      </div>
-      <div class="projects-grid">
-
-        <div class="project-card">
-          <div class="project-tag">Featured · Civic Tech</div>
-          <div class="project-name">EkoFare</div>
-          <p class="project-desc">A full-stack civic technology platform addressing Lagos transportation logistics. Real-time state management, resilient APIs, and a product-first approach to a city-scale problem.</p>
-          <div class="project-stack">
-            <span class="stack-tag">React</span>
-            <span class="stack-tag">Node.js</span>
-            <span class="stack-tag">PostgreSQL</span>
-            <span class="stack-tag">Redis</span>
-          </div>
+    <section id="work" class="border-b border-black scroll-mt-16">
+        <div class="px-6 md:px-12 py-24 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <h2 class="text-6xl md:text-8xl font-bold tracking-tighter">SELECT WORK</h2>
+            <div class="font-mono text-sm pb-2 text-gray-500">01 // EXPERIENCE</div>
         </div>
 
-        <div class="project-card">
-          <div class="project-tag">Embedded Systems</div>
-          <div class="project-name">BMS-EMS</div>
-          <p class="project-desc">Battery and Energy Management System built with the dev team at Lytup. Firmware in C, peripheral communication via SPI/I2C, and a hardware abstraction layer to keep the code portable across boards.</p>
-          <div class="project-stack">
-            <span class="stack-tag">C</span>
-            <span class="stack-tag">RTOS</span>
-            <span class="stack-tag">CAN Bus</span>
-            <span class="stack-tag">Python</span>
-          </div>
+        <details class="group border-b border-black cursor-pointer">
+            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
+                <div class="font-mono text-xl w-32">2026—PRES</div>
+                <h3 class="text-5xl md:text-7xl font-bold flex-1">LYTUP</h3>
+                <div class="font-mono text-base md:text-right">SYSTEMS ENGINEER INTERN<br><span class="text-gray-500">[ GOLANG / MODBUS ]</span></div>
+            </summary>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black relative">
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Handling concurrent authentication requests from Keycloak resulted in race conditions. Additionally, remote monitoring required a highly robust hardware-software bridge to manage the Battery Management System (BMS).</p>
+                </div>
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Engineered thread-safe credential storage using Go Mutexes. Integrated Modbus and RS485 protocols for reliable communication between the BMS and the EMS API, processing precise telemetry down to the mWh level.</p>
+                </div>
+                <div class="p-8 md:p-16">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Eliminated auth race conditions completely. Optimized JSON parsing speed, and successfully established a stable data pipeline for the physical energy storage hardware.</p>
+                </div>
+                <div class="col-span-1 lg:col-span-3 border-t border-black p-6 md:px-16 bg-[#EFECE6] flex justify-end">
+                    <a href="https://www.lytup.co/" target="_blank" rel="noopener noreferrer" class="font-mono text-sm border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-colors flex items-center gap-3">
+                        VISIT LYTUP.CO 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </details>
+
+        <details class="group border-b border-black cursor-pointer">
+            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
+                <div class="font-mono text-xl w-32">2026—PRES</div>
+                <h3 class="text-5xl md:text-7xl font-bold flex-1">OGALANDLORD</h3>
+                <div class="font-mono text-base md:text-right">BACKEND ENGINEER<br><span class="text-gray-500">[ NODE.JS / PRISMA ]</span></div>
+            </summary>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black">
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">The platform suffered from fragmented data models for Tenants and Agents, making authentication workflows and database relationships difficult to maintain.</p>
+                </div>
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Executed a complex database migration consolidating User schemas via Prisma. Built a unified JWT/OAuth 2.0 auth system and strictly validated all API inputs using Zod.</p>
+                </div>
+                <div class="p-8 md:p-16">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Developed and documented 25+ RESTful endpoints. Significantly reduced unhandled server errors through strict validation, confirmed by comprehensive E2E test suites.</p>
+                </div>
+            </div>
+        </details>
+        
+        <details class="group border-b border-black cursor-pointer">
+            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
+                <div class="font-mono text-xl w-32 text-gray-600">2026</div>
+                <h3 class="text-5xl md:text-7xl font-bold flex-1 text-gray-600">COCA-COLA</h3>
+                <div class="font-mono text-base md:text-right text-gray-600">IT SUPPORT INTERN<br><span class="text-gray-500">[ HARDWARE / NET ]</span></div>
+            </summary>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black">
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Managing enterprise device lifecycles while providing immediate, empathetic support to employees facing hardware and network blockers.</p>
+                </div>
+                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Acted as a customer-facing professional, resolving hardware/network issues and guiding corporate users through technical hurdles. Managed device enrollment via Microsoft Intune.</p>
+                </div>
+                <div class="p-8 md:p-16">
+                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
+                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Achieved 100% audit compliance and resolved weekly IT tickets, fostering a deep understanding of user behavior and cross-departmental communication in a corporate setting.</p>
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section id="projects" class="border-b border-black scroll-mt-16">
+        <div class="px-6 md:px-12 py-24 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <h2 class="text-6xl md:text-8xl font-bold tracking-tighter">PROJECTS</h2>
+            <div class="font-mono text-sm pb-2 text-gray-500">02 // INDEPENDENT</div>
         </div>
 
-        <div class="project-card">
-          <div class="project-tag">Backend · Proptech</div>
-          <div class="project-name">OgaLandlord</div>
-          <p class="project-desc">Property management backend serving landlords and tenants across Nigeria. REST API design, database modelling, and iterative service improvements.</p>
-          <div class="project-stack">
-            <span class="stack-tag">Go</span>
-            <span class="stack-tag">gRPC</span>
-            <span class="stack-tag">PostgreSQL</span>
-            <span class="stack-tag">Docker</span>
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="border-b md:border-b-0 md:border-r border-black flex flex-col">
+                <div class="p-8 md:p-16 border-b border-black bg-black text-[#EFECE6]">
+                    <h3 class="text-4xl md:text-5xl font-bold mb-4">EKOFARE</h3>
+                    <div class="font-mono text-sm text-[#EB3615] tracking-widest">NEXT.JS / ZUSTAND / TAILWIND</div>
+                </div>
+                <div class="p-8 md:p-16 flex-1 bg-white">
+                    <p class="text-xl md:text-2xl leading-relaxed mb-8">A responsive web application designed as a public transit fare reference for Lagos.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="font-mono text-sm font-bold text-gray-500 block mb-2">ARCHITECTURE</span>
+                            <p class="text-lg leading-relaxed text-gray-800">Implemented scalable state management using Zustand and built out the core frontend requirements to ensure rapid, reliable data delivery for transit users.</p>
+                        </div>
+                    </div>
+                    <a href="https://github.com/DantheCE/EkoFare" target="_blank" rel="noopener noreferrer" class="inline-block mt-12 font-mono text-base border-2 border-black px-8 py-4 hover:bg-black hover:text-white transition-all hover:scale-105">VIEW REPOSITORY →</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="p-8 md:p-16 border-b border-black bg-black text-[#EFECE6]">
+                    <h3 class="text-4xl md:text-5xl font-bold mb-4">CONCURRENT TCP SERVER</h3>
+                    <div class="font-mono text-sm text-[#EB3615] tracking-widest">C / POSIX SOCKETS / PTHREADS</div>
+                </div>
+                <div class="p-8 md:p-16 flex-1 bg-white">
+                    <p class="text-xl md:text-2xl leading-relaxed mb-8">A low-level implementation of a multi-client concurrent TCP server and client architecture.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <span class="font-mono text-sm font-bold text-gray-500 block mb-2">ARCHITECTURE</span>
+                            <p class="text-lg leading-relaxed text-gray-800">Utilized POSIX sockets and pthreads in C to manage multiple simultaneous connections safely, directly applying low-level memory and concurrency management principles.</p>
+                        </div>
+                    </div>
+                    <a href="https://github.com/DantheCE/tcp-chat" target="_blank" rel="noopener noreferrer" class="inline-block mt-12 font-mono text-base border-2 border-black px-8 py-4 hover:bg-black hover:text-white transition-all hover:scale-105">VIEW REPOSITORY →</a>
+                </div>
+            </div>
         </div>
+    </section>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── ELEVATOR PITCH ─── -->
-  <section id="pitch">
-    <div class="pitch-inner">
-      <div class="section-header">
-        <span class="section-num">03 /</span>
-        <h2 class="section-title">Elevator Pitch</h2>
-      </div>
-      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 540px; margin: 0 auto 1rem;">A 90-second introduction to who I am, what I build, and why it matters.</p>
-
-      <div class="video-placeholder">
-        <div class="play-icon">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
+    <section id="pitch" class="border-b border-black bg-[#EFECE6] py-32 px-6 md:px-12 scroll-mt-16">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <div class="font-mono text-sm text-[#EB3615] mb-6 tracking-widest">03 // DIRECT TO CAMERA</div>
+            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">THE ELEVATOR PITCH</h2>
         </div>
-        <div class="video-label">Video Coming Soon</div>
-        <div class="video-sublabel">Elevator pitch · ~90 seconds</div>
-      </div>
-    </div>
-  </section>
+        
+        <div class="max-w-6xl mx-auto">
+            <div class="relative w-full overflow-hidden bg-black border-2 border-black aspect-video group flex items-center justify-center cursor-pointer shadow-[16px_16px_0px_0px_rgba(18,18,18,1)] transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[20px_20px_0px_0px_rgba(235,54,21,1)]">
+                
+                <div class="text-center z-10 transition-transform group-hover:scale-110">
+                    <div class="w-20 h-20 border-2 border-[#EFECE6] rounded-full flex items-center justify-center mx-auto mb-6 bg-transparent text-[#EFECE6]">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 ml-2">
+                          <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <span class="font-mono text-base text-[#EFECE6] tracking-widest block">[ UPLOAD / EMBED VIDEO HERE ]</span>
+                </div>
+                
+                <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+            </div>
+        </div>
+    </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-name">Daniel Fagbohunlu © 2026</span>
-    <ul class="footer-links">
-      <li><a href="https://github.com" target="_blank">GitHub</a></li>
-      <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-      <li><a href="mailto:hello@example.com">Email</a></li>
+    <footer class="bg-black text-[#EFECE6]">
+        <div class="px-6 md:px-12 py-32 text-center border-b border-[#333]">
+            <h2 class="text-[14vw] md:text-[12vw] font-bold tracking-tighter leading-none hover:text-[#EB3615] transition-colors cursor-default">LET'S BUILD.</h2>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 font-mono text-base md:text-lg">
+            <a href="mailto:dan.doyin@gmail.com" class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[#333] hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
+                <span>EMAIL</span>
+                <span>DAN.DOYIN@GMAIL.COM</span>
+            </a>
+            <a href="https://github.com/DantheCE" target="_blank" rel="noopener noreferrer" class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[#333] hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
+                <span>GITHUB</span>
+                <span>/DANTHECE</span>
+            </a>
+            <a href="https://www.linkedin.com/in/daniel-fagbohunlu/" target="_blank" rel="noopener noreferrer" class="p-8 md:p-12 hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
+                <span>LINKEDIN</span>
+                <span>/DANIEL-FAGBOHUNLU</span>
+            </a>
+        </div>
+        
+        <div class="border-t border-[#333] px-6 md:px-12 py-6 flex justify-between items-center font-mono text-xs text-gray-500">
+            <span>SYSTEM STATUS: ONLINE</span>
+            <span>[ SYS. UPDATE: 2026 ]</span>
+        </div>
+    </footer>
 
-    </ul>
-  </footer>
-
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const options = { timeZone: 'Africa/Lagos', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const timeString = now.toLocaleTimeString('en-US', options);
+            document.getElementById('lagos-clock').textContent = `LAGOS, WAT ${timeString}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
