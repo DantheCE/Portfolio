@@ -1,327 +1,313 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Fagbohunlu | Systems Engineer</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Space+Grotesk:wght@500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bone: #EFECE6;
-            --black: #121212;
-            --vermilion: #EB3615;
-        }
-        
-        body {
-            background-color: var(--bone);
-            color: var(--black);
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden; 
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daniel Fagbohunlu — Backend Engineer</title>
+<meta name="description" content="Daniel Fagbohunlu, backend engineer in Lagos. Go, TypeScript, and Python microservices, hardware protocol integration, and PostgreSQL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF7F1; --surface:#FFFFFF; --sunken:#F1ECE1;
+    --ink:#2B2722; --ink-muted:#6E665C; --ink-faint:#9C9488;
+    --line:#E7E0D4;
+    --accent:#C07A12; --accent-strong:#8F5A0C; --accent-soft:#F7EAD2;
+    --font-display:'Anton', 'Arial Narrow', Impact, sans-serif;
+    --font-sans:'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
+    --font-mono:'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+    --r-sm:4px; --r-md:8px; --r-lg:12px;
+    --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+  }
+  html[data-theme="dark"]{
+    --bg:#1B1815; --surface:#241F1B; --sunken:#2D2823;
+    --ink:#ECE6DB; --ink-muted:#A89F92; --ink-faint:#7C7468;
+    --line:#332E28;
+    --accent:#E0A348; --accent-strong:#F0BE72; --accent-soft:#372C1A;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-sans);
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    transition:background .25s ease, color .25s ease;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--font-display); color:var(--ink); margin:0; font-weight:400;
+    text-transform:uppercase; letter-spacing:.01em; line-height:1.02;}
 
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            text-transform: uppercase;
-            line-height: 1.05;
-        }
+  .skip{position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--bg);
+    padding:10px 14px; border-radius:var(--r-md); z-index:10; font-size:14px;}
+  .skip:focus{left:var(--s4); top:var(--s4);}
 
-        .font-mono {
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
+  .layout{display:grid; grid-template-columns:340px 1fr;}
 
-        .work-row {
-            transition: color 0.2s ease, background-color 0.2s ease;
-        }
-        .work-row:hover {
-            color: var(--vermilion);
-            background-color: rgba(18, 18, 18, 0.03);
-            cursor: pointer;
-        }
-        
-        .marquee-wrapper {
-            display: flex;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 100vw;
-        }
-        .marquee-content {
-            display: flex;
-            animation: scroll 20s linear infinite;
-        }
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+  .sidebar{position:sticky; top:0; height:100vh; overflow-y:auto; border-right:1px solid var(--line);
+    padding:var(--s8) var(--s6) var(--s6); display:flex; flex-direction:column;}
+  .brand .name{font-family:var(--font-display); font-size:42px; line-height:.92; font-weight:400;
+    text-transform:uppercase; letter-spacing:.01em;}
+  .brand .role{font-size:14px; color:var(--ink-muted); margin-top:var(--s3);}
+  .brand .intro{font-size:14px; color:var(--ink-muted); margin-top:var(--s4); line-height:1.6; max-width:30ch;}
+  .status{display:flex; align-items:center; gap:8px; margin-top:var(--s5);
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-muted);}
+  .status .dot{width:8px; height:8px; border-radius:50%; background:var(--accent);}
 
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-        details[open] summary { border-bottom: 1px solid var(--black); }
-    </style>
+  nav.nav{margin-top:var(--s7); display:flex; flex-direction:column; gap:2px;}
+  nav.nav a{font-size:15px; font-weight:500; color:var(--ink-muted); text-decoration:none;
+    padding:7px 0 7px var(--s3); border-left:2px solid transparent; transition:color .2s, border-color .2s;}
+  nav.nav a:hover{color:var(--ink);}
+  nav.nav a.active{color:var(--ink); border-left-color:var(--accent);}
+  nav.nav a .idx{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); margin-right:10px;}
+
+  .deck{margin-top:var(--s7);}
+  .btn{font-family:var(--font-sans); font-size:14px; font-weight:600; display:inline-flex; align-items:center;
+    justify-content:center; gap:8px; width:100%; padding:12px 15px; border-radius:var(--r-md);
+    border:1px solid var(--accent); color:var(--accent-strong); background:transparent; cursor:pointer;
+    text-decoration:none; transition:background .2s;}
+  .btn:hover{background:var(--accent-soft);}
+  .btn svg{width:15px; height:15px;}
+  .deck .hint{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); margin-top:var(--s2); text-align:center;}
+
+  .side-foot{margin-top:auto; padding-top:var(--s6);}
+  .contact-row{display:flex; gap:var(--s4); font-family:var(--font-mono); font-size:12px;}
+  .contact-row a{color:var(--ink-muted); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:color .2s;}
+  .contact-row a:hover{color:var(--accent-strong);}
+  .contact-row svg{width:14px; height:14px;}
+  .side-foot .theme{margin-top:var(--s4); font-family:var(--font-mono); font-size:11px; color:var(--ink-faint);
+    background:transparent; border:0; cursor:pointer; padding:0;}
+  .side-foot .theme:hover{color:var(--accent-strong);}
+
+  main.content{padding:var(--s9) var(--s8) var(--s9) var(--s8); max-width:760px;}
+  section{scroll-margin-top:var(--s5); padding-bottom:var(--s9);}
+  .sec-head{margin-bottom:var(--s6);}
+  .sec-head .kicker{font-family:var(--font-mono); font-size:12px; letter-spacing:.10em; text-transform:uppercase;
+    color:var(--ink-faint); margin-bottom:var(--s2);}
+  .sec-head h2{font-size:34px; letter-spacing:.01em;}
+  .sec-head .hr{height:1px; background:var(--line); margin-top:var(--s4);}
+
+  .intro-block{padding-bottom:var(--s8);}
+  .intro-block h1{font-size:34px; line-height:1.08; font-weight:400; max-width:20ch;}
+  .intro-block h1 em{font-style:normal; color:var(--accent);}
+  .intro-block p{color:var(--ink-muted); font-size:17px; margin-top:var(--s4); max-width:52ch;}
+
+  .entry{padding:var(--s6) 0; border-bottom:1px solid var(--line);}
+  .entry:first-of-type{padding-top:0;}
+  .entry:last-child{border-bottom:0; padding-bottom:0;}
+  .entry .top{display:flex; justify-content:space-between; align-items:baseline; gap:var(--s4);}
+  .entry .org{font-family:var(--font-display); font-size:24px; font-weight:400; text-transform:uppercase; letter-spacing:.01em;}
+  .entry .date{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); white-space:nowrap;}
+  .entry .role{font-size:14px; color:var(--ink-muted); margin-top:2px;}
+  .entry ul{list-style:none; margin:var(--s4) 0 0; padding:0;}
+  .entry li{position:relative; padding-left:var(--s5); margin-bottom:var(--s2); color:var(--ink-muted); font-size:15px;}
+  .entry li::before{content:"—"; position:absolute; left:0; color:var(--ink-faint);}
+  .entry li b{color:var(--ink); font-weight:600;}
+  .tags{display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s4);}
+  .tag{font-family:var(--font-mono); font-size:12px; color:var(--ink-muted); background:var(--sunken);
+    padding:3px 9px; border-radius:var(--r-sm);}
+
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--s4);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px; display:flex; flex-direction:column;}
+  .card .title{font-family:var(--font-display); font-size:22px; font-weight:400; text-transform:uppercase; letter-spacing:.01em; line-height:1.05;}
+  .card .stack{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); margin:6px 0 var(--s3);}
+  .card .desc{color:var(--ink-muted); font-size:15px; margin-bottom:var(--s4);}
+  .card .repo{margin-top:auto; font-family:var(--font-mono); font-size:12px;}
+  .link{color:var(--accent-strong); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s;}
+  .link:hover{border-bottom-color:var(--accent);}
+
+  .about p{color:var(--ink-muted); font-size:16px; max-width:58ch;}
+  .stack-grid{margin-top:var(--s6); display:grid; grid-template-columns:140px 1fr; gap:var(--s3) var(--s5); font-size:14px;}
+  .stack-grid dt{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em;}
+  .stack-grid dd{margin:0; color:var(--ink-muted);}
+  .edu{margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line);}
+  .edu .top{display:flex; justify-content:space-between; align-items:baseline; gap:var(--s4);}
+  .edu .school{font-family:var(--font-display); font-size:20px; font-weight:400; text-transform:uppercase; letter-spacing:.01em;}
+  .edu .date{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint);}
+  .edu .deg{font-size:14px; color:var(--ink-muted);}
+
+  .contact-cta a.big{font-family:var(--font-display); font-size:30px; font-weight:400; color:var(--ink); letter-spacing:.01em;
+    text-decoration:none; border-bottom:2px solid var(--accent-soft); transition:border-color .2s;}
+  .contact-cta a.big:hover{border-bottom-color:var(--accent);}
+  .contact-cta .links{margin-top:var(--s5); display:flex; gap:var(--s5); font-family:var(--font-mono); font-size:13px; flex-wrap:wrap;}
+  .contact-cta .links a{color:var(--ink-muted); text-decoration:none;}
+  .contact-cta .links a:hover{color:var(--accent-strong);}
+  .foot{margin-top:var(--s8); font-family:var(--font-mono); font-size:11px; color:var(--ink-faint);}
+
+  @media (max-width:860px){
+    .layout{grid-template-columns:1fr;}
+    .sidebar{position:static; height:auto; border-right:0; border-bottom:1px solid var(--line); padding:var(--s7) var(--s5) var(--s6);}
+    nav.nav{flex-direction:row; flex-wrap:wrap; gap:var(--s4); margin-top:var(--s6);}
+    nav.nav a{border-left:0; padding:0;}
+    nav.nav a.active{border-left:0; color:var(--accent-strong);}
+    nav.nav a .idx{display:none;}
+    .deck{margin-top:var(--s6); max-width:260px;}
+    .side-foot{margin-top:var(--s6);}
+    main.content{padding:var(--s7) var(--s5) var(--s8);}
+    .brand .name{font-size:34px;}
+  }
+  @keyframes fadeUp{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;}}
+  .brand,.status,nav.nav,.deck,.side-foot,.intro-block{animation:fadeUp .5s ease both;}
+  .status{animation-delay:.05s;} nav.nav{animation-delay:.10s;} .deck{animation-delay:.15s;}
+  .side-foot{animation-delay:.20s;} .intro-block{animation-delay:.12s;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .brand,.status,nav.nav,.deck,.side-foot,.intro-block{animation:none;}
+  }
+</style>
 </head>
-<body class="antialiased selection:bg-[#EB3615] selection:text-white">
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="layout">
 
-    <nav class="fixed top-0 left-0 w-full bg-[#EFECE6] border-b border-black grid grid-cols-2 md:grid-cols-3 z-50 font-mono text-sm md:text-base h-16 items-center px-6 md:px-12">
-        <div class="font-bold tracking-widest truncate text-base md:text-lg">DANIEL FAGBOHUNLU</div>
-        
-        <div class="text-center hidden md:block text-sm" id="lagos-clock">LAGOS, WAT --:--:--</div>
-        
-        <div class="text-right flex justify-end gap-6 md:gap-8 text-sm">
-            <a href="#work" class="hover:text-[#EB3615] transition-colors hidden sm:block">WORK</a>
-            <a href="#projects" class="hover:text-[#EB3615] transition-colors hidden sm:block">PROJECTS</a>
-            <a href="path/to/your/slide_deck.pdf" download class="text-[#EB3615] hover:text-black transition-colors font-bold">[DECK]</a>
-        </div>
-    </nav>
-
-    <section class="mt-16 min-h-[80vh] flex flex-col justify-center px-6 md:px-12 py-24 border-b border-black">
-        <div class="font-mono text-xl md:text-2xl text-[#EB3615] mb-6 tracking-widest font-bold">
-            DANIEL FAGBOHUNLU //
-        </div>
-        
-        <h1 class="text-[10vw] md:text-[8vw] font-bold tracking-tighter mb-8 leading-[0.9]">
-            SYSTEMS &<br>BACKEND<br>ENGINEER.
-        </h1>
-        <p class="font-mono text-lg md:text-xl max-w-3xl leading-relaxed text-gray-700 mb-12">
-            Specializing in low-level architecture, embedded systems communication, and highly concurrent backend infrastructure. Driven by resource optimization and thread safety.
-        </p>
-        <div>
-            <a href="path/to/your/slide_deck.pdf" download class="inline-flex items-center gap-3 font-mono text-sm md:text-base border-2 border-black px-8 py-4 bg-black text-[#EFECE6] hover:bg-[#EFECE6] hover:text-black transition-colors shadow-[8px_8px_0px_0px_rgba(235,54,21,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1">
-                [ DOWNLOAD PORTFOLIO DECK ↓ ]
-            </a>
-        </div>
-    </section>
-
-    <div class="py-8 border-b border-black bg-black text-[#EFECE6] relative">
-        <div class="marquee-wrapper font-mono text-2xl md:text-3xl tracking-widest font-bold">
-            <div class="marquee-content">
-                <span class="mx-6">C / C++</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">GOLANG</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">NODE.JS</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">POSTGRESQL</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">PRISMA</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">MODBUS / RS485</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">PTHREADS</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">C / C++</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">GOLANG</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">NODE.JS</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">POSTGRESQL</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">PRISMA</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">MODBUS / RS485</span><span class="mx-6 text-[#EB3615]">•</span>
-                <span class="mx-6">PTHREADS</span><span class="mx-6 text-[#EB3615]">•</span>
-            </div>
-        </div>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="name">Daniel<br>Fagbohunlu</div>
+      <div class="role">Backend engineer · Lagos, Nigeria</div>
+      <p class="intro">I build backends from hardware protocols up to REST APIs, in Go, TypeScript, and Python.</p>
+      <div class="status"><span class="dot"></span> Open to backend roles</div>
     </div>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 border-b border-black">
-        <div class="p-8 md:p-16 border-b md:border-b-0 md:border-r border-black">
-            <div class="font-mono text-sm text-gray-500 mb-6">CURRENT STATUS</div>
-            <div class="text-2xl md:text-3xl font-medium mb-12 font-display uppercase">
-                B.Sc. Computer Science<br>
-                <span class="text-gray-500 text-xl">Babcock University (Exp. 2027)</span>
-            </div>
-            
-            <div class="font-mono text-sm text-gray-500 mb-6">ACTIVE ROLES</div>
-            <div class="text-2xl md:text-3xl font-medium mb-6 font-display uppercase">
-                Systems Engineer Intern<br>
-                <span class="text-gray-500 text-xl">@ Lytup</span>
-            </div>
-            <div class="text-2xl md:text-3xl font-medium font-display uppercase">
-                Backend Engineer<br>
-                <span class="text-gray-500 text-xl">@ OgaLandlord</span>
-            </div>
-        </div>
-        
-        <div class="p-8 md:p-16 bg-[#EFECE6]">
-            <div class="font-mono text-sm text-gray-500 mb-6">METHODOLOGY</div>
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">NOT AN ISLAND.</h2>
-            <p class="text-lg md:text-xl leading-relaxed max-w-prose text-gray-800">
-                I build robust systems through Agile methodologies, daily standups, and rigorous code reviews. I thrive in fast-paced environments, resolving complex merge conflicts collaboratively to deploy system-level integrations without breaking the pipeline.
-            </p>
-        </div>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work" class="active" aria-current="true"><span class="idx">01</span>Work</a>
+      <a href="#projects"><span class="idx">02</span>Projects</a>
+      <a href="#about"><span class="idx">03</span>About</a>
+      <a href="#contact"><span class="idx">04</span>Contact</a>
+    </nav>
+
+    <div class="deck">
+      <a class="btn" href="Daniel-Fagbohunlu-deck.pdf" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 12l5 5 5-5"/><path d="M5 21h14"/></svg>
+        Download deck
+      </a>
+      <div class="hint">PDF · expands on this site</div>
+    </div>
+
+    <div class="side-foot">
+      <div class="contact-row">
+        <a href="https://github.com/DantheCE" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.4 6.8 9.7.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.6.9.6 1.9v2.8c0 .3.2.6.7.5 3.9-1.3 6.8-5.2 6.8-9.7C22 6.6 17.5 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:dan.doyin@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email
+        </a>
+      </div>
+      <button class="theme" id="themeToggle">Switch to light</button>
+    </div>
+  </aside>
+
+  <main class="content" id="main">
+
+    <div class="intro-block">
+      <h1>Backends built with <em>intent</em>, from the metal up.</h1>
+      <p>Production work across solar-energy telemetry and real-estate platforms. I read protocol manuals, design the auth, model the data, and ship the endpoints.</p>
+    </div>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="sec-head"><p class="kicker">01 — Work</p><h2 id="work-h">Work</h2><div class="hr"></div></div>
+
+      <div class="entry">
+        <div class="top"><span class="org">Lytup</span><span class="date">2026 — present</span></div>
+        <div class="role">Backend Engineer · Lagos, Nigeria</div>
+        <ul>
+          <li>Built the Lytup solar-monitoring backend on a microservice architecture (<b>19+ endpoints</b>), trimming typical latency <b>~300ms to ~200ms</b>.</li>
+          <li>Implemented <b>4 auth flows</b> with Keycloak, keeping credentials and sessions out of the database via token introspection.</li>
+          <li>Wrote the Go polling and parsing from Modbus, RS485, and CAN manuals across <b>10+ inverter and BMS products</b>.</li>
+          <li>Built a Python tool that simplified CAN-based device development for the team.</li>
+        </ul>
+        <div class="tags"><span class="tag">Go</span><span class="tag">Keycloak</span><span class="tag">Modbus</span><span class="tag">RS485</span><span class="tag">CAN</span><span class="tag">Python</span></div>
+      </div>
+
+      <div class="entry">
+        <div class="top"><span class="org">OgaLandlord</span><span class="date">2026 — present</span></div>
+        <div class="role">Backend Engineer (Contract) · Lagos, Nigeria</div>
+        <ul>
+          <li>Built the TypeScript / Express backend from the ground up: <b>30+ REST endpoints</b> with role-based access control and <b>20 tests</b> across 6 Jest suites.</li>
+          <li>Shipped <b>3 auth mechanisms</b>: JWT sessions, OTP email verification, and Google OAuth2 SSO.</li>
+          <li>Modeled <b>10 relational Prisma models</b> and ran migrations, including unifying the User and Agent models.</li>
+          <li>Built property listing and the agent verification workflow on a Multer / Cloudinary upload pipeline.</li>
+        </ul>
+        <div class="tags"><span class="tag">TypeScript</span><span class="tag">Express</span><span class="tag">PostgreSQL</span><span class="tag">Prisma</span></div>
+      </div>
     </section>
 
-    <section id="work" class="border-b border-black scroll-mt-16">
-        <div class="px-6 md:px-12 py-24 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <h2 class="text-6xl md:text-8xl font-bold tracking-tighter">SELECT WORK</h2>
-            <div class="font-mono text-sm pb-2 text-gray-500">01 // EXPERIENCE</div>
+    <section id="projects" aria-labelledby="projects-h">
+      <div class="sec-head"><p class="kicker">02 — Projects</p><h2 id="projects-h">Projects</h2><div class="hr"></div></div>
+      <div class="cards">
+        <div class="card">
+          <div class="title">MBTA Telemetry Pipeline</div>
+          <div class="stack">Python · GCP Cloud Run · Redpanda · Protobuf</div>
+          <p class="desc">Event-driven telemetry pipeline held at <b>$0/month</b>, with 3-node replication for zero data loss and an idempotent daily ETL.</p>
+          <div class="repo"><a class="link" href="https://github.com/DantheCE/mbta-telemetry-pipeline">github.com/DantheCE/mbta-telemetry-pipeline</a></div>
         </div>
-
-        <details class="group border-b border-black cursor-pointer">
-            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
-                <div class="font-mono text-xl w-32">2026—PRES</div>
-                <h3 class="text-5xl md:text-7xl font-bold flex-1">LYTUP</h3>
-                <div class="font-mono text-base md:text-right">SYSTEMS ENGINEER INTERN<br><span class="text-gray-500">[ GOLANG / MODBUS ]</span></div>
-            </summary>
-            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black relative">
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Handling concurrent authentication requests from Keycloak resulted in race conditions. Additionally, remote monitoring required a highly robust hardware-software bridge to manage the Battery Management System (BMS).</p>
-                </div>
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Engineered thread-safe credential storage using Go Mutexes. Integrated Modbus and RS485 protocols for reliable communication between the BMS and the EMS API, processing precise telemetry down to the mWh level.</p>
-                </div>
-                <div class="p-8 md:p-16">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Eliminated auth race conditions completely. Optimized JSON parsing speed, and successfully established a stable data pipeline for the physical energy storage hardware.</p>
-                </div>
-                <div class="col-span-1 lg:col-span-3 border-t border-black p-6 md:px-16 bg-[#EFECE6] flex justify-end">
-                    <a href="https://www.lytup.co/" target="_blank" rel="noopener noreferrer" class="font-mono text-sm border-2 border-black px-6 py-3 hover:bg-black hover:text-white transition-colors flex items-center gap-3">
-                        VISIT LYTUP.CO 
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" /></svg>
-                    </a>
-                </div>
-            </div>
-        </details>
-
-        <details class="group border-b border-black cursor-pointer">
-            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
-                <div class="font-mono text-xl w-32">2026—PRES</div>
-                <h3 class="text-5xl md:text-7xl font-bold flex-1">OGALANDLORD</h3>
-                <div class="font-mono text-base md:text-right">BACKEND ENGINEER<br><span class="text-gray-500">[ NODE.JS / PRISMA ]</span></div>
-            </summary>
-            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black">
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">The platform suffered from fragmented data models for Tenants and Agents, making authentication workflows and database relationships difficult to maintain.</p>
-                </div>
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Executed a complex database migration consolidating User schemas via Prisma. Built a unified JWT/OAuth 2.0 auth system and strictly validated all API inputs using Zod.</p>
-                </div>
-                <div class="p-8 md:p-16">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Developed and documented 25+ RESTful endpoints. Significantly reduced unhandled server errors through strict validation, confirmed by comprehensive E2E test suites.</p>
-                </div>
-            </div>
-        </details>
-        
-        <details class="group border-b border-black cursor-pointer">
-            <summary class="work-row px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row justify-between md:items-center relative gap-6">
-                <div class="font-mono text-xl w-32 text-gray-600">2026</div>
-                <h3 class="text-5xl md:text-7xl font-bold flex-1 text-gray-600">COCA-COLA</h3>
-                <div class="font-mono text-base md:text-right text-gray-600">IT SUPPORT INTERN<br><span class="text-gray-500">[ HARDWARE / NET ]</span></div>
-            </summary>
-            <div class="grid grid-cols-1 lg:grid-cols-3 bg-white text-black">
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">01. PROBLEM</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Managing enterprise device lifecycles while providing immediate, empathetic support to employees facing hardware and network blockers.</p>
-                </div>
-                <div class="p-8 md:p-16 border-b lg:border-b-0 lg:border-r border-black">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">02. APPROACH</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Acted as a customer-facing professional, resolving hardware/network issues and guiding corporate users through technical hurdles. Managed device enrollment via Microsoft Intune.</p>
-                </div>
-                <div class="p-8 md:p-16">
-                    <div class="font-mono text-sm font-bold text-[#EB3615] mb-6">03. RESULT</div>
-                    <p class="text-lg md:text-xl leading-relaxed text-gray-800">Achieved 100% audit compliance and resolved weekly IT tickets, fostering a deep understanding of user behavior and cross-departmental communication in a corporate setting.</p>
-                </div>
-            </div>
-        </details>
+        <div class="card">
+          <div class="title">Multi-Client TCP Server</div>
+          <div class="stack">C · POSIX Sockets · pthreads</div>
+          <p class="desc">Concurrent TCP chat server in <b>222 lines of C</b>, up to 10 clients each on its own thread, with 5 explicit failure paths and no leaks.</p>
+          <div class="repo"><a class="link" href="https://github.com/DantheCE/tcp-chat">github.com/DantheCE/tcp-chat</a></div>
+        </div>
+      </div>
     </section>
 
-    <section id="projects" class="border-b border-black scroll-mt-16">
-        <div class="px-6 md:px-12 py-24 border-b border-black flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-            <h2 class="text-6xl md:text-8xl font-bold tracking-tighter">PROJECTS</h2>
-            <div class="font-mono text-sm pb-2 text-gray-500">02 // INDEPENDENT</div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2">
-            <div class="border-b md:border-b-0 md:border-r border-black flex flex-col">
-                <div class="p-8 md:p-16 border-b border-black bg-black text-[#EFECE6]">
-                    <h3 class="text-4xl md:text-5xl font-bold mb-4">EKOFARE</h3>
-                    <div class="font-mono text-sm text-[#EB3615] tracking-widest">NEXT.JS / ZUSTAND / TAILWIND</div>
-                </div>
-                <div class="p-8 md:p-16 flex-1 bg-white">
-                    <p class="text-xl md:text-2xl leading-relaxed mb-8">A responsive web application designed as a public transit fare reference for Lagos.</p>
-                    <div class="space-y-6">
-                        <div>
-                            <span class="font-mono text-sm font-bold text-gray-500 block mb-2">ARCHITECTURE</span>
-                            <p class="text-lg leading-relaxed text-gray-800">Implemented scalable state management using Zustand and built out the core frontend requirements to ensure rapid, reliable data delivery for transit users.</p>
-                        </div>
-                    </div>
-                    <a href="https://github.com/DantheCE/EkoFare" target="_blank" rel="noopener noreferrer" class="inline-block mt-12 font-mono text-base border-2 border-black px-8 py-4 hover:bg-black hover:text-white transition-all hover:scale-105">VIEW REPOSITORY →</a>
-                </div>
-            </div>
-
-            <div class="flex flex-col">
-                <div class="p-8 md:p-16 border-b border-black bg-black text-[#EFECE6]">
-                    <h3 class="text-4xl md:text-5xl font-bold mb-4">CONCURRENT TCP SERVER</h3>
-                    <div class="font-mono text-sm text-[#EB3615] tracking-widest">C / POSIX SOCKETS / PTHREADS</div>
-                </div>
-                <div class="p-8 md:p-16 flex-1 bg-white">
-                    <p class="text-xl md:text-2xl leading-relaxed mb-8">A low-level implementation of a multi-client concurrent TCP server and client architecture.</p>
-                    <div class="space-y-6">
-                        <div>
-                            <span class="font-mono text-sm font-bold text-gray-500 block mb-2">ARCHITECTURE</span>
-                            <p class="text-lg leading-relaxed text-gray-800">Utilized POSIX sockets and pthreads in C to manage multiple simultaneous connections safely, directly applying low-level memory and concurrency management principles.</p>
-                        </div>
-                    </div>
-                    <a href="https://github.com/DantheCE/tcp-chat" target="_blank" rel="noopener noreferrer" class="inline-block mt-12 font-mono text-base border-2 border-black px-8 py-4 hover:bg-black hover:text-white transition-all hover:scale-105">VIEW REPOSITORY →</a>
-                </div>
-            </div>
-        </div>
+    <section id="about" aria-labelledby="about-h" class="about">
+      <div class="sec-head"><p class="kicker">03 — About</p><h2 id="about-h">About</h2><div class="hr"></div></div>
+      <p>I am a backend engineer in Lagos working across two production teams in Agile settings. My range runs from low-level hardware integration, reading Modbus, RS485, and CAN documentation to pull telemetry off batteries and inverters, through to auth design, PostgreSQL schema work, and REST APIs that the rest of the product builds on.</p>
+      <dl class="stack-grid">
+        <dt>Languages</dt><dd>Go, Python, TypeScript, JavaScript, C, SQL</dd>
+        <dt>Backend</dt><dd>Node.js, Express, REST, Microservices, Kafka</dd>
+        <dt>Auth</dt><dd>Keycloak, JWT, OAuth2, RBAC, Session management</dd>
+        <dt>Protocols</dt><dd>Modbus, RS485, CAN, Protocol Buffers</dd>
+        <dt>Data</dt><dd>PostgreSQL, Prisma, Relational schema design</dd>
+        <dt>Tooling</dt><dd>Git, Docker, Linux, GCP, Agile / Scrum</dd>
+      </dl>
+      <div class="edu">
+        <div class="top"><span class="school">Babcock University</span><span class="date">2023 — expected 2027</span></div>
+        <div class="deg">B.Sc. Computer Science · Ilishan-Remo, Ogun State</div>
+      </div>
     </section>
 
-    <section id="pitch" class="border-b border-black bg-[#EFECE6] py-32 px-6 md:px-12 scroll-mt-16">
-        <div class="max-w-4xl mx-auto text-center mb-16">
-            <div class="font-mono text-sm text-[#EB3615] mb-6 tracking-widest">03 // DIRECT TO CAMERA</div>
-            <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">THE ELEVATOR PITCH</h2>
-        </div>
-        
-        <div class="max-w-6xl mx-auto">
-            <div class="relative w-full overflow-hidden bg-black border-2 border-black aspect-video group flex items-center justify-center cursor-pointer shadow-[16px_16px_0px_0px_rgba(18,18,18,1)] transition-transform hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[20px_20px_0px_0px_rgba(235,54,21,1)]">
-                <div class="text-center z-10 transition-transform group-hover:scale-110">
-                    <div class="w-20 h-20 border-2 border-[#EFECE6] rounded-full flex items-center justify-center mx-auto mb-6 bg-transparent text-[#EFECE6]">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-10 h-10 ml-2"><path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" /></svg>
-                    </div>
-                    <span class="font-mono text-base text-[#EFECE6] tracking-widest block">[ UPLOAD / EMBED VIDEO HERE ]</span>
-                </div>
-                <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
-            </div>
-        </div>
+    <section id="contact" aria-labelledby="contact-h" class="contact-cta">
+      <div class="sec-head"><p class="kicker">04 — Contact</p><h2 id="contact-h">Contact</h2><div class="hr"></div></div>
+      <a class="big" href="mailto:dan.doyin@gmail.com">dan.doyin@gmail.com</a>
+      <div class="links">
+        <a href="https://github.com/DantheCE">github.com/DantheCE</a>
+        <a href="https://danthece.github.io">danthece.github.io</a>
+        <a href="Daniel-Fagbohunlu-deck.pdf" download>Download deck (PDF)</a>
+      </div>
+      <div class="foot">Built by Daniel Fagbohunlu · Anton, Hanken Grotesk, JetBrains Mono</div>
     </section>
 
-    <footer class="bg-black text-[#EFECE6]">
-        <div class="px-6 md:px-12 py-32 text-center border-b border-[#333]">
-            <h2 class="text-[14vw] md:text-[12vw] font-bold tracking-tighter leading-none hover:text-[#EB3615] transition-colors cursor-default">LET'S BUILD.</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 font-mono text-base md:text-lg">
-            <a href="mailto:dan.doyin@gmail.com" class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[#333] hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
-                <span>EMAIL</span>
-                <span>DAN.DOYIN@GMAIL.COM</span>
-            </a>
-            <a href="https://github.com/DantheCE" target="_blank" rel="noopener noreferrer" class="p-8 md:p-12 border-b md:border-b-0 md:border-r border-[#333] hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
-                <span>GITHUB</span>
-                <span>/DANTHECE</span>
-            </a>
-            <a href="https://www.linkedin.com/in/daniel-fagbohunlu/" target="_blank" rel="noopener noreferrer" class="p-8 md:p-12 hover:bg-[#EFECE6] hover:text-black transition-colors flex justify-between items-center">
-                <span>LINKEDIN</span>
-                <span>/DANIEL-FAGBOHUNLU</span>
-            </a>
-        </div>
-        
-        <div class="border-t border-[#333] px-6 md:px-12 py-6 flex justify-between items-center font-mono text-xs text-gray-500">
-            <span>SYSTEM AUTHOR: DANIEL FAGBOHUNLU</span>
-            <span>[ SYS. UPDATE: 2026 ]</span>
-        </div>
-    </footer>
+  </main>
+</div>
+<script>
+  (function(){
+    var root=document.documentElement, btn=document.getElementById('themeToggle');
+    function set(t){ root.setAttribute('data-theme',t); btn.textContent = t==='dark' ? 'Switch to light' : 'Switch to dark'; }
+    btn.addEventListener('click', function(){ set(root.getAttribute('data-theme')==='dark'?'light':'dark'); });
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const options = { timeZone: 'Africa/Lagos', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const timeString = now.toLocaleTimeString('en-US', options);
-            document.getElementById('lagos-clock').textContent = `LAGOS, WAT ${timeString}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
+    var links=[].slice.call(document.querySelectorAll('nav.nav a'));
+    var sections=[].slice.call(document.querySelectorAll('main section'));
+    var map={}; links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+    function setActive(id){
+      links.forEach(function(l){
+        var on = l===map[id];
+        l.classList.toggle('active', on);
+        if(on){ l.setAttribute('aria-current','true'); } else { l.removeAttribute('aria-current'); }
+      });
+    }
+    function onScroll(){
+      var line=window.innerHeight*0.3, current=sections[0].id;
+      sections.forEach(function(s){ if(s.getBoundingClientRect().top<=line) current=s.id; });
+      if((window.innerHeight+window.scrollY) >= (document.documentElement.scrollHeight-2)) current=sections[sections.length-1].id;
+      setActive(current);
+    }
+    var ticking=false;
+    window.addEventListener('scroll', function(){
+      if(!ticking){ ticking=true; requestAnimationFrame(function(){ onScroll(); ticking=false; }); }
+    }, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    links.forEach(function(a){ a.addEventListener('click', function(){ setActive(a.getAttribute('href').slice(1)); }); });
+    onScroll();
+  })();
+</script>
 </body>
 </html>
