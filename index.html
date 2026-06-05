@@ -7,24 +7,24 @@
 <meta name="description" content="Daniel Fagbohunlu, backend engineer in Lagos. Go, TypeScript, and Python microservices, hardware protocol integration, and PostgreSQL.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FAF7F1; --surface:#FFFFFF; --sunken:#F1ECE1;
-    --ink:#2B2722; --ink-muted:#6E665C; --ink-faint:#9C9488;
-    --line:#E7E0D4;
-    --accent:#C07A12; --accent-strong:#8F5A0C; --accent-soft:#F7EAD2;
-    --font-display:'Anton', 'Arial Narrow', Impact, sans-serif;
-    --font-sans:'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
+    --bg:#0A0A0A; --surface:#161616; --sunken:#000000;
+    --ink:#FFFFFF; --ink-muted:#888888; --ink-faint:#555555;
+    --line:#262626;
+    --accent:#B5F82C; --accent-strong:#99FF00; --accent-soft:rgba(181, 248, 44, 0.15);
+    --font-display:'Inter', 'Segoe UI', system-ui, sans-serif;
+    --font-sans:'Inter', 'Segoe UI', system-ui, sans-serif;
     --font-mono:'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
-    --r-sm:4px; --r-md:8px; --r-lg:12px;
+    --r-sm:6px; --r-md:16px; --r-lg:24px;
     --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px; --s9:96px;
   }
   html[data-theme="dark"]{
-    --bg:#1B1815; --surface:#241F1B; --sunken:#2D2823;
-    --ink:#ECE6DB; --ink-muted:#A89F92; --ink-faint:#7C7468;
-    --line:#332E28;
-    --accent:#E0A348; --accent-strong:#F0BE72; --accent-soft:#372C1A;
+    --bg:#0A0A0A; --surface:#161616; --sunken:#000000;
+    --ink:#FFFFFF; --ink-muted:#888888; --ink-faint:#555555;
+    --line:#262626;
+    --accent:#B5F82C; --accent-strong:#99FF00; --accent-soft:rgba(181, 248, 44, 0.15);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -32,8 +32,8 @@
     font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
     transition:background .25s ease, color .25s ease;}
   a{color:inherit;}
-  h1,h2,h3{font-family:var(--font-display); color:var(--ink); margin:0; font-weight:400;
-    text-transform:uppercase; letter-spacing:.01em; line-height:1.02;}
+  h1,h2,h3{font-family:var(--font-display); color:var(--ink); margin:0; font-weight:800;
+    letter-spacing:-0.02em; line-height:1.05;}
 
   .skip{position:absolute; left:-9999px; top:0; background:var(--ink); color:var(--bg);
     padding:10px 14px; border-radius:var(--r-md); z-index:10; font-size:14px;}
@@ -43,8 +43,8 @@
 
   .sidebar{position:sticky; top:0; height:100vh; overflow-y:auto; border-right:1px solid var(--line);
     padding:var(--s8) var(--s6) var(--s6); display:flex; flex-direction:column;}
-  .brand .name{font-family:var(--font-display); font-size:42px; line-height:.92; font-weight:400;
-    text-transform:uppercase; letter-spacing:.01em;}
+  .brand .name{font-family:var(--font-display); font-size:42px; line-height:.92; font-weight:800;
+    letter-spacing:-0.03em;}
   .brand .role{font-size:14px; color:var(--ink-muted); margin-top:var(--s3);}
   .brand .intro{font-size:14px; color:var(--ink-muted); margin-top:var(--s4); line-height:1.6; max-width:30ch;}
   .status{display:flex; align-items:center; gap:8px; margin-top:var(--s5);
@@ -59,11 +59,11 @@
   nav.nav a .idx{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); margin-right:10px;}
 
   .deck{margin-top:var(--s7);}
-  .btn{font-family:var(--font-sans); font-size:14px; font-weight:600; display:inline-flex; align-items:center;
-    justify-content:center; gap:8px; width:100%; padding:12px 15px; border-radius:var(--r-md);
-    border:1px solid var(--accent); color:var(--accent-strong); background:transparent; cursor:pointer;
-    text-decoration:none; transition:background .2s;}
-  .btn:hover{background:var(--accent-soft);}
+  .btn{font-family:var(--font-sans); font-size:14px; font-weight:700; display:inline-flex; align-items:center;
+    justify-content:center; gap:8px; width:100%; padding:14px 20px; border-radius:100px;
+    border:none; color:#0A0A0A; background:var(--accent); cursor:pointer;
+    text-decoration:none; transition:background .2s, transform .2s;}
+  .btn:hover{background:var(--accent-strong); transform:translateY(-2px);}
   .btn svg{width:15px; height:15px;}
   .deck .hint{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); margin-top:var(--s2); text-align:center;}
 
@@ -80,12 +80,12 @@
   section{scroll-margin-top:var(--s5); padding-bottom:var(--s9);}
   .sec-head{margin-bottom:var(--s6);}
   .sec-head .kicker{font-family:var(--font-mono); font-size:12px; letter-spacing:.10em; text-transform:uppercase;
-    color:var(--ink-faint); margin-bottom:var(--s2);}
-  .sec-head h2{font-size:34px; letter-spacing:.01em;}
+    color:var(--accent); margin-bottom:var(--s2); font-weight:700;}
+  .sec-head h2{font-size:34px; letter-spacing:-0.01em;}
   .sec-head .hr{height:1px; background:var(--line); margin-top:var(--s4);}
 
   .intro-block{padding-bottom:var(--s8);}
-  .intro-block h1{font-size:34px; line-height:1.08; font-weight:400; max-width:20ch;}
+  .intro-block h1{font-size:34px; line-height:1.08; font-weight:800; max-width:20ch;}
   .intro-block h1 em{font-style:normal; color:var(--accent);}
   .intro-block p{color:var(--ink-muted); font-size:17px; margin-top:var(--s4); max-width:52ch;}
 
@@ -93,24 +93,25 @@
   .entry:first-of-type{padding-top:0;}
   .entry:last-child{border-bottom:0; padding-bottom:0;}
   .entry .top{display:flex; justify-content:space-between; align-items:baseline; gap:var(--s4);}
-  .entry .org{font-family:var(--font-display); font-size:24px; font-weight:400; text-transform:uppercase; letter-spacing:.01em;}
+  .entry .org{font-family:var(--font-display); font-size:24px; font-weight:700; letter-spacing:-0.01em;}
   .entry .date{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); white-space:nowrap;}
   .entry .role{font-size:14px; color:var(--ink-muted); margin-top:2px;}
   .entry ul{list-style:none; margin:var(--s4) 0 0; padding:0;}
   .entry li{position:relative; padding-left:var(--s5); margin-bottom:var(--s2); color:var(--ink-muted); font-size:15px;}
-  .entry li::before{content:"—"; position:absolute; left:0; color:var(--ink-faint);}
+  .entry li::before{content:"—"; position:absolute; left:0; color:var(--accent);}
   .entry li b{color:var(--ink); font-weight:600;}
   .tags{display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s4);}
-  .tag{font-family:var(--font-mono); font-size:12px; color:var(--ink-muted); background:var(--sunken);
-    padding:3px 9px; border-radius:var(--r-sm);}
+  .tag{font-family:var(--font-mono); font-size:12px; color:var(--ink-muted); background:var(--surface);
+    border: 1px solid var(--line); padding:3px 12px; border-radius:100px;}
 
   .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--s4);}
-  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:22px; display:flex; flex-direction:column;}
-  .card .title{font-family:var(--font-display); font-size:22px; font-weight:400; text-transform:uppercase; letter-spacing:.01em; line-height:1.05;}
-  .card .stack{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); margin:6px 0 var(--s3);}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:28px; display:flex; flex-direction:column; transition: border-color .2s;}
+  .card:hover{border-color:var(--ink-faint);}
+  .card .title{font-family:var(--font-display); font-size:22px; font-weight:700; letter-spacing:-0.01em; line-height:1.05;}
+  .card .stack{font-family:var(--font-mono); font-size:12px; color:var(--accent); margin:6px 0 var(--s3);}
   .card .desc{color:var(--ink-muted); font-size:15px; margin-bottom:var(--s4);}
   .card .repo{margin-top:auto; font-family:var(--font-mono); font-size:12px;}
-  .link{color:var(--accent-strong); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s;}
+  .link{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s;}
   .link:hover{border-bottom-color:var(--accent);}
 
   .about p{color:var(--ink-muted); font-size:16px; max-width:58ch;}
@@ -119,11 +120,11 @@
   .stack-grid dd{margin:0; color:var(--ink-muted);}
   .edu{margin-top:var(--s6); padding-top:var(--s5); border-top:1px solid var(--line);}
   .edu .top{display:flex; justify-content:space-between; align-items:baseline; gap:var(--s4);}
-  .edu .school{font-family:var(--font-display); font-size:20px; font-weight:400; text-transform:uppercase; letter-spacing:.01em;}
+  .edu .school{font-family:var(--font-display); font-size:20px; font-weight:700; letter-spacing:-0.01em;}
   .edu .date{font-family:var(--font-mono); font-size:12px; color:var(--ink-faint);}
   .edu .deg{font-size:14px; color:var(--ink-muted);}
 
-  .contact-cta a.big{font-family:var(--font-display); font-size:30px; font-weight:400; color:var(--ink); letter-spacing:.01em;
+  .contact-cta a.big{font-family:var(--font-display); font-size:30px; font-weight:800; color:var(--ink); letter-spacing:-0.02em;
     text-decoration:none; border-bottom:2px solid var(--accent-soft); transition:border-color .2s;}
   .contact-cta a.big:hover{border-bottom-color:var(--accent);}
   .contact-cta .links{margin-top:var(--s5); display:flex; gap:var(--s5); font-family:var(--font-mono); font-size:13px; flex-wrap:wrap;}
@@ -273,7 +274,7 @@
         <a href="https://danthece.github.io">danthece.github.io</a>
         <a href="Daniel-Fagbohunlu-deck.pdf" download>Download deck (PDF)</a>
       </div>
-      <div class="foot">Built by Daniel Fagbohunlu · Anton, Hanken Grotesk, JetBrains Mono</div>
+      <div class="foot">Built by Daniel Fagbohunlu · Inspired by loook.ai</div>
     </section>
 
   </main>
